@@ -6,23 +6,10 @@
             this.chatUsers = [];
             this.chatHistory = [];
             this.unreadMessages = [];
-            // this.message = [];
-
-            /**
-             * check param in constructor
-             */
-            // this.checkChats = function () {
-            //     if (chatName == null) {
-            //         throw new Error('Enter a chat-name')
-            //     } else {
-            //         alert(chatName)
-            //     }
-            // };
 
             if (chatName == null) {
                 throw new Error('Enter a chat-name')
             }
-
 
             /**
              * add user to chat2
@@ -32,7 +19,7 @@
                 if (this.chatUsers.indexOf(user.userName) === -1) {
                     this.chatUsers.push(user.userName);
                 } else {
-                    alert("User: " + user.userName + " olready conected to the chat: " + this.chatName)
+                    alert("User: " + user.userName + " already connected to the chat: " + this.chatName)
                 }
             };
 
@@ -43,27 +30,25 @@
             this.disabledUser = function (user) {
                 if (this.chatUsers.indexOf(user.userName) !== -1) {
                     this.chatUsers.splice(this.chatUsers.indexOf(user.userName), 1)
-                    alert("User: " + user.userName + " disconected from the chat: " + this.chatName)
+                    alert("User: " + user.userName + " disconnected from the chat: " + this.chatName)
                 }
-            }
+            };
 
             this.sendMessage = function (user, str) {
                 let message;
 
-                if (user == undefined || str == undefined) {
+                if (user === undefined || str === undefined) {
                     throw new Error('Enter all parameters')
                 } else {
                     if (this.chatUsers.indexOf(user.userName) !== -1) {
                         message = new Message(user, str);
                         this.chatHistory.push(message);
-                        //  console.log(message);
-                        // return message;
                     } else {
                         throw new Error('User: \'' + user.userName + '\' isn\'t registered in ' + this.chatName + '-chat.')
                     }
                 }
                 console.log('new message: ' + message.message);
-                return message.message;
+                // return message.message;
             };
 
             /**
@@ -73,27 +58,25 @@
              */
             this.logHistoryMessage = function (index, num) {
                 let messages;
-                let logMessage=[];
+                let chatHictory = [];
+                let logMessage;
                 if (index !== undefined && num !== undefined) {
                     messages = this.chatHistory.slice(index, num + 1);
-                    // message = this.chatHistory.slice(index, num + 1);
-                } else if (index !== undefined && num == undefined) {
+                } else if (index !== undefined && num === undefined) {
                     messages = this.chatHistory.slice(0, index);
-                } else if (index == undefined && num == undefined) {
-
+                } else if (index === undefined && num === undefined) {
                     messages = this.chatHistory.slice(0, 10);
                 }
                 for (let i = 0; i < messages.length; i++) {
-                    let logMessage = messages[i];
-                    logMessage.push('[' + user.userName + '] ' + '{User connecting: ' + (this.chatUsers.indexOf(user.userName) !== -1) + '} ' + '[' + logMessage.today + '] ' + ': ' + logMessage.message);
-                    // let userConnected = chat.chatUsers.indexOf(this.userName) !== -1;
-                    // console.log('[' + this.userName + '] '
-                    //     + '{User connecting: ' + userConnected + '} '
-                    //     + '[' + logMessage.today + '] '
-                    //     + ': ' + logMessage.message);
+                    logMessage = messages[i];
+                    chatHictory.push('[' + logMessage.userName + '] ' +
+                        '{User connecting: ' +
+                        (this.chatUsers.indexOf(logMessage.userName) !== -1) + '} '
+                        + '[' + logMessage.today + '] ' + ': '
+                        + logMessage.message + '\n');
                 }
-                console.log('history ' + this.chatName + ' chat: ' + logMessage);
-             };
+                console.log('history ' + this.chatName + ' chat: \n' + chatHictory);
+            };
 
             this.getUnreadMessages = function (user, num) {
                 // let unreadMessages = [];
@@ -107,9 +90,8 @@
                         }
                     }
                 }
-
                 console.log('unreadMessages: ' + this.unreadMessages);
-                return this.unreadMessages
+                // return this.unreadMessages
             }
         }
 
@@ -121,8 +103,8 @@
         Chat.getAllChats = function (chat) {
             this.chats.push(chat.chatName);
             console.log(this.chats);
-            return this.chats;
-        }
+            // return this.chats;
+        };
 
 
         /**
@@ -189,10 +171,8 @@
                 message = new Message(this, str);
                 if (chat == null) {
                     defaultChat.chatHistory.push(message);
-                    // console.log('default_chat: ' + message.message);
                 } else {
                     chat.chatHistory.push(message);
-                    // console.log(chat.chatName + ': ' + message.message);
                 }
             };
 
@@ -202,7 +182,6 @@
              * @param numInput
              */
             this.readMessage = function (chatInput, numInput) {
-
                 let logMessage;
                 let readMessage = [];
 
@@ -225,7 +204,9 @@
                 if (chat.chatUsers.indexOf(this.userName) !== -1) {
                     for (let i = 0; i < messages.length; i++) {
                         logMessage = messages[i];
-                        readMessage.push('[' + this.userName + '] ' + '{User connecting: ' + (chat.chatUsers.indexOf(this.userName) !== -1) + '} ' + '[' + logMessage.today + '] ' + ': ' + logMessage.message);
+                        readMessage.push('[' + this.userName + '] '
+                            + '{User connecting: ' + (chat.chatUsers.indexOf(this.userName) !== -1) + '} ' +
+                            '[' + logMessage.today + '] ' + ': ' + logMessage.message);
                     }
                 } else {
                     readMessage.push('[' + this.userName + '] ' + '{User connecting: ' + (chat.chatUsers.indexOf(this.userName) !== -1) + '}');
@@ -234,31 +215,12 @@
             }
         }
 
-//     this.readMessage = function (chat, num) {
-//         let messages;
-//         let logMessage;
-//         let readMessage = [];
-//         if (chat !== undefined && num !== undefined) {
-//             messages = chat.chatHistory.slice(0, num + 1);
-//         } else if (chat !== undefined && num === undefined) {
-//             if (typeof chat == "object") {
-//                 messages = chat.chatHistory.slice(-10, chat.chatHistory.length);
-//             } else if (typeof chat == "number") {
-//                 messages = default_chat.chatHistory.slice(-chat, default_chat.chatHistory.length);
-//             }
-//         }
-//         if (chat.chatUsers.indexOf(this.userName) !== -1) {
-//             for (let i = 0; i < messages.length; i++) {
-//                 logMessage = messages[i];
-//                 readMessage.push('[' + this.userName + '] ' + '{User connecting: ' + (chat.chatUsers.indexOf(this.userName) !== -1) + '} ' + '[' + logMessage.today + '] ' + ': ' + logMessage.message);
-//             }
-//         } else {
-//             readMessage.push('[' + this.userName + '] ' + '{User connecting: ' + (chat.chatUsers.indexOf(this.userName) !== -1) + '}');
-//         }
-//         console.log(readMessage);
-//     }
-// }
-
+        /**
+         *
+         * @param user
+         * @param str
+         * @constructor
+         */
         function Message(user, str) {
             this.message = str;
             const date = new Date();
@@ -266,12 +228,11 @@
             this.userName = user.userName;
             this.userWhoReadMessage = [];
 
-
             this.markAsReadByUser = function (user) {
                 if (!this.isReadByUser(user)) {
                     this.userWhoReadMessage.push(user.userName);
                 }
-            }
+            };
 
             this.isReadByUser = function (user) {
                 return this.userWhoReadMessage.indexOf(user.userName) !== -1
@@ -356,7 +317,7 @@
         // userJulia.removeUserFromChat(chat2);
         // userSveta.removeUserFromChat();
 
-
+//send message
         chat2.sendMessage(userSveta, "Hello i'm message from " + userSveta.userName);
         chat2.sendMessage(userVP, "Hello i'm message from " + userVP.userName);
         chat2.sendMessage(userJulia, "Hello i'm second message from " + userJulia.userName);
@@ -372,7 +333,6 @@
 
 
         chat3.getUnreadMessages(userVP, 2);
-        // chat3.getUnreadMessages(userdef);
         chat2.getUnreadMessages(userJulia);
         chat2.getUnreadMessages(userSveta);
 
@@ -384,35 +344,7 @@
         userDima.sendMessage('ere trt e');
         // userDima.sendMessage('message default');
 
-
-//     userJulia.sendMessage('sfsefsds315431543 11345dfsd ');
-//
-//
-//
-//
-//
-//
-//     userNotDefault.addUserToChat(chat1);
-//     userdef.sendMessage('lorem fnkjvf', chat1);
-//     userdef.sendMessage('sfsdf 1235', chat1);
-//     userDima.sendMessage('125354', chat1);
-//
-//
-//
-//
-// // delete users from chat 1
-//     chat1.disabledUser(userKolia);
-//     chat1.disabledUser(userdef);
-//
-// // send message chat 1
-//
-//
-
-
-        // userdef.addUserToChat(chat2);
-        //
-        //
-        //
+//read message
         userJulia.readMessage(chat2, 2);
         userJulia.readMessage(chat2, 1);
         userJulia.readMessage(chat2);
@@ -430,13 +362,10 @@
         Chat.getAllChats(chat1);
         Chat.getAllChats(chat3);
 
-        // let message = new Message(userKolia, "Hello, I'm Kolia");
-        // message.checkArg();
-        // console.log('message: ' + message.today);
 
-    chat3.logHistoryMessage(1, 2);
-//     chat1.logHistoryMessage(1);
-//     chat1.logHistoryMessage();
+        chat3.logHistoryMessage(1, 2);
+        chat3.logHistoryMessage(4);
+        chat2.logHistoryMessage();
 //     chat2.logHistoryMessage(1, 2);
 //     chat2.logHistoryMessage(1);
 //     chat2.logHistoryMessage();
