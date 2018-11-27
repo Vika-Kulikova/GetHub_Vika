@@ -1,0 +1,108 @@
+body {
+    background-color: black;
+    position: relative;
+    font-family: 'Roboto Mono', monospace;
+}
+.banner-game {
+    position: absolute;
+    background: url("../images/battleship_banner.png") no-repeat;
+    transform: rotate(-90deg);
+    width: 1435px;
+    height: 232px;
+    left: -650px;
+}
+#message-result {
+    text-align: center;
+    color: #43ff03;
+    font-size: 30px;
+    margin-top: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+}
+div#board {
+    position: relative;
+    width: 1024px;
+    height: 863px;
+    margin: auto;
+    background: url("../images/radar_screen_animation_by_mardoek50-dbsfgid.gif") no-repeat;
+    background-position: center;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
+/*div#messageArea {*/
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*left: 0px;*/
+    /*color: rgb(83, 175, 19);*/
+/*}*/
+.hit {
+    background: url("../images/ship.png") no-repeat center center;
+}
+.miss {
+    background: url("../images/miss.png") no-repeat center center;
+}
+table {
+    border-spacing: 0;
+    position: absolute;
+    left: 184px;
+    top: 103px;
+}
+td {
+    width: 94px;
+    height: 94px;
+    border: 1px solid rgb(83, 175, 19);
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+td:hover {
+    background-color: #b32b00;
+    opacity: 0.3;
+    cursor: url("../images/crosshair.png") 20 20, crosshair;
+}
+form {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding: 15px;
+    background-color: rgb(83, 175, 19);
+}
+form input {
+    background-color: rgb(152, 207, 113);
+    border-color: rgb(83, 175, 19);
+    font-size: 1em;
+}
+
+.ui-widget-header {
+    background: transparent;
+    border: none;
+}
+.ui-widget.ui-widget-content {
+    background: url("../images/metal-grunge-metallic-steel-4347 (1).jpg") no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    background-size: cover;
+    border: none;
+}
+.ui-dialog-title {
+    display: none;
+}
+.ui-dialog .ui-dialog-content {
+    text-align: center;
+    font-size: 26px;
+    color: #14191e;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    line-height: 32px;
+}
+
+.ui-dialog .ui-dialog-content p {
+    margin-top: 11px;
+}
+.ui-dialog-titlebar .ui-button {
+    background: none;
+    border: none;
+    outline: none;
+}
