@@ -1,7 +1,7 @@
 body {
     background-color: black;
     position: relative;
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Special Elite', cursive;
 }
 .banner-game {
     position: absolute;
@@ -10,6 +10,19 @@ body {
     width: 1435px;
     height: 232px;
     left: -650px;
+}
+#generate-new-ship-location {
+    float: right;
+    padding: 10px;
+    font-size: 16px;
+    background: url("../images/metal-grunge-metallic-steel-4347 (1).jpg") no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    background-size: cover;
+    border: none;
+    font-family: 'Special Elite', cursive;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 2px #518c3d, 6px 3px 1em #43ff03;
 }
 #message-result {
     text-align: center;
@@ -79,12 +92,15 @@ form input {
     background: transparent;
     border: none;
 }
-.ui-widget.ui-widget-content {
+.ui-dialog.ui-widget.ui-widget-content {
     background: url("../images/metal-grunge-metallic-steel-4347 (1).jpg") no-repeat;
     background-position: center;
     -webkit-background-size: cover;
     background-size: cover;
     border: none;
+    width: 390px!important;
+    height: 180px!important;
+    /*transform: scaleX(50);*/
 }
 .ui-dialog-title {
     display: none;
@@ -96,6 +112,9 @@ form input {
     font-weight: bold;
     letter-spacing: 0.05em;
     line-height: 32px;
+    margin-top: 10px;
+    font-family: 'Special Elite', cursive;
+    text-shadow: 2px 2px 2px #518c3d, 6px 3px 1em #43ff03;
 }
 
 .ui-dialog .ui-dialog-content p {

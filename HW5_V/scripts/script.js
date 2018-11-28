@@ -1,6 +1,5 @@
 ;(function () {
-        function Display() {
-        };
+        function Display() {}
 
         Display.prototype.displayMessage = function (str) {
             let message = document.getElementById("message-result");
@@ -24,11 +23,14 @@
             this.shipLength = 3;
             this.shipsSunk = 0;
             this.ships = [
-                {locations: ["06", "16", "26"], hits: ["", "", ""]},
-                {locations: ["24", "34", "44"], hits: ["", "", ""]},
-                {locations: ["10", "11", "12"], hits: ["", "", ""]}
+                // {locations: ["06", "16", "26"], hits: ["", "", ""]},
+                // {locations: ["24", "34", "44"], hits: ["", "", ""]},
+                // {locations: ["10", "11", "12"], hits: ["", "", ""]}
+                {locations: [0, 0, 0], hits: ["", "", ""]},
+                {locations: [0, 0, 0], hits: ["", "", ""]},
+                {locations: [0, 0, 0], hits: ["", "", ""]}
             ];
-
+        }
             Ships.prototype.fire = function (guess) {
                 for (let i = 0; i < this.numShips; i++) {
                     let ship = this.ships[i];
@@ -47,7 +49,6 @@
                 Display.prototype.displayMiss(guess);
                 Display.prototype.displayMessage("You missed.");
                 return false;
-
             };
 
             Ships.prototype._isSunk = function (ship) {
@@ -59,7 +60,51 @@
                 return true
             };
 
-        }
+            Ships.prototype.generateShipLocation = function () {
+                let locations;
+                for (let i = 0; i < this.numShips; i++) {
+                    do {
+                        locations = Ships.prototype._generateShip();
+                    } while (Ships.prototype._intersection(locations));
+                    this.ships[i].locations = locations;
+                }
+                console.log("Ships array: ");
+                console.log(this.ships);
+            };
+
+            Ships.prototype._generateShip = function () {
+                let direction = Math.floor(Math.random() * 2);
+                let row, col;
+                let newPosition = [];
+                if (direction === 1) {
+                    row = Math.floor(Math.random() * this.boardSize);
+                    col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+                } else {
+                    row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+                    col = Math.floor(Math.random() * this.boardSize);
+                }
+                for (let i = 0; i < this.shipLength; i++) {
+                    if (direction === 1) {
+                        newPosition.push(row + "" + (col + i));
+                    } else {
+                        newPosition.push((row + i) + "" + col);
+                    }
+                }
+                return newPosition;
+            };
+
+            Ships.prototype._intersection = function (locations) {
+                for (let i = 0; i < this.numShips; i++) {
+                    let ship = this.ships[i];
+                    for (let j = 0; j < locations.length; j++) {
+                        if (ship.locations.indexOf(locations[j])>=0) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
+
 
         function Controller(ship) {
             this.guesses = 0;
@@ -71,30 +116,30 @@
                 this.guesses++;
                 let hit = this.ship.fire(location);
                 if (hit && this.ship.shipsSunk === this.ship.numShips) {
-                    Display.prototype.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
+                    // Display.prototype.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
+                    let message = document.getElementById("dialog");
+                    message.innerText = "You sank all my battleships, in " + this.guesses + " guesses";
+                    $("#dialog").dialog();
                 }
             }
         };
 
-        let display = new Display();
+        // let display = new Display();
         let ships = new Ships();
         let controller = new Controller(ships);
 
-
-
+        let generateShips = document.getElementById('generate-new-ship-location');
+        generateShips.onclick = function(){
+            ships.generateShipLocation();
+        };
         let table = document.getElementById('table');
         table.onclick = function (event) {
-            // alert("table");
             let target = event.target;
-
             if (target.tagName !== 'TD') {
                 return;
             }
-
             let id = target.getAttribute('id');
-
             controller.processGuess(id);
-            // ships.fire(id);
         }
 
 
