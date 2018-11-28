@@ -15,6 +15,9 @@
 <body>
 <div class="container-battle">
     <div class="banner-game"></div>
+    <div id="dialog" title="Basic dialog">
+        <p>You sank all my battleships, in " + N + " guesses</p>
+    </div>
     <div id="board">
         <table id="table">
             <tr>
@@ -88,23 +91,10 @@
 </div>
 <script src="scripts/script.js">
 </script>
-<script>
-    // $(function () {
-    //
-    //     let table = document.getElementById('table');
-    //     table.onclick = function(event) {
-    //         // alert("table");
-    //         var target = event.target;
-    //
-    //         if (target.tagName != 'TD') return; // не на TD? тогда не интересует
-    //
-    //         var action = target.getAttribute('id');
-    //         alert(action);
-    //     };
-    //
-    //
-    //
-    // });
-</script>
+<!--<script>-->
+    <!--$( function() {-->
+        <!--$( "#dialog" ).dialog();-->
+    <!--} );-->
+<!--</script>-->
 </body>
 </html>

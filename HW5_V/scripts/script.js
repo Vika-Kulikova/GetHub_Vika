@@ -71,7 +71,9 @@
                 this.guesses++;
                 let hit = this.ship.fire(location);
                 if (hit && this.ship.shipsSunk === this.ship.numShips) {
-                    Display.prototype.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
+                    let message = document.getElementById("dialog");
+                    message.innerText = "You sank all my battleships, in " + this.guesses + " guesses";
+                    $( "#dialog" ).dialog();
                 }
             }
         };
