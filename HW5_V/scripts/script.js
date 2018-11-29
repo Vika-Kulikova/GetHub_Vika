@@ -1,5 +1,6 @@
 ;(function () {
-        function Display() {}
+        function Display() {
+        }
 
         Display.prototype.displayMessage = function (str) {
             let message = document.getElementById("message-result");
@@ -31,80 +32,80 @@
                 {locations: [0, 0, 0], hits: ["", "", ""]}
             ];
         }
-            Ships.prototype.fire = function (guess) {
-                for (let i = 0; i < this.numShips; i++) {
-                    let ship = this.ships[i];
-                    let index = ship.locations.indexOf(guess);
-                    if (index >= 0) {
-                        ship.hits[index] = 'hit';
-                        Display.prototype.displayHit(guess);
-                        Display.prototype.displayMessage("Hit!");
-                        if (this._isSunk(ship)) {
-                            Display.prototype.displayMessage("You sunk my battleship!");
-                            this.shipsSunk++;
-                        }
+
+        Ships.prototype.fire = function (guess) {
+            for (let i = 0; i < this.numShips; i++) {
+                let ship = this.ships[i];
+                let index = ship.locations.indexOf(guess);
+                if (index >= 0) {
+                    ship.hits[index] = 'hit';
+                    Display.prototype.displayHit(guess);
+                    Display.prototype.displayMessage("Hit!");
+                    if (this._isSunk(ship)) {
+                        Display.prototype.displayMessage("You sunk my battleship!");
+                        this.shipsSunk++;
+                    }
+                    return true;
+                }
+            }
+            Display.prototype.displayMiss(guess);
+            Display.prototype.displayMessage("You missed.");
+            return false;
+        };
+
+        Ships.prototype._isSunk = function (ship) {
+            for (let i = 0; i < this.shipLength; i++) {
+                if (ship.hits[i] !== 'hit') {
+                    return false
+                }
+            }
+            return true
+        };
+
+        Ships.prototype.generateShipLocation = function () {
+            let locations;
+            for (let i = 0; i < this.numShips; i++) {
+                do {
+                    locations = this._generateShip();
+                } while (this._intersection(locations));
+                this.ships[i].locations = locations;
+            }
+            console.log("Ships array: ");
+            console.log(this.ships);
+        };
+
+        Ships.prototype._generateShip = function () {
+            let direction = Math.floor(Math.random() * 2);
+            let row, col;
+            let newPosition = [];
+            if (direction === 1) {
+                row = Math.floor(Math.random() * this.boardSize);
+                col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+            } else {
+                row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+                col = Math.floor(Math.random() * this.boardSize);
+            }
+            for (let i = 0; i < this.shipLength; i++) {
+                if (direction === 1) {
+                    newPosition.push(row + "" + (col + i));
+                } else {
+                    newPosition.push((row + i) + "" + col);
+                }
+            }
+            return newPosition;
+        };
+
+        Ships.prototype._intersection = function (locations) {
+            for (let i = 0; i < this.numShips; i++) {
+                let ship = this.ships[i];
+                for (let j = 0; j < locations.length; j++) {
+                    if (ship.locations.indexOf(locations[j]) >= 0) {
                         return true;
                     }
                 }
-                Display.prototype.displayMiss(guess);
-                Display.prototype.displayMessage("You missed.");
-                return false;
-            };
-
-            Ships.prototype._isSunk = function (ship) {
-                for (let i = 0; i < this.shipLength; i++) {
-                    if (ship.hits[i] !== 'hit') {
-                        return false
-                    }
-                }
-                return true
-            };
-
-            Ships.prototype.generateShipLocation = function () {
-                let locations;
-                for (let i = 0; i < this.numShips; i++) {
-                    do {
-                        locations = Ships.prototype._generateShip();
-                    } while (Ships.prototype._intersection(locations));
-                    this.ships[i].locations = locations;
-                }
-                console.log("Ships array: ");
-                console.log(this.ships);
-            };
-
-            Ships.prototype._generateShip = function () {
-                let direction = Math.floor(Math.random() * 2);
-                let row, col;
-                let newPosition = [];
-                if (direction === 1) {
-                    row = Math.floor(Math.random() * this.boardSize);
-                    col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
-                } else {
-                    row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
-                    col = Math.floor(Math.random() * this.boardSize);
-                }
-                for (let i = 0; i < this.shipLength; i++) {
-                    if (direction === 1) {
-                        newPosition.push(row + "" + (col + i));
-                    } else {
-                        newPosition.push((row + i) + "" + col);
-                    }
-                }
-                return newPosition;
-            };
-
-            Ships.prototype._intersection = function (locations) {
-                for (let i = 0; i < this.numShips; i++) {
-                    let ship = this.ships[i];
-                    for (let j = 0; j < locations.length; j++) {
-                        if (ship.locations.indexOf(locations[j])>=0) {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            };
-
+            }
+            return false;
+        };
 
         function Controller(ship) {
             this.guesses = 0;
@@ -129,7 +130,7 @@
         let controller = new Controller(ships);
 
         let generateShips = document.getElementById('generate-new-ship-location');
-        generateShips.onclick = function(){
+        generateShips.onclick = function () {
             ships.generateShipLocation();
         };
         let table = document.getElementById('table');
@@ -141,7 +142,5 @@
             let id = target.getAttribute('id');
             controller.processGuess(id);
         }
-
-
     }
 )();
