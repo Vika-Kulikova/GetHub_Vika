@@ -1,3 +1,19 @@
+body {
+    background: #333;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+* {
+    box-sizing: border-box;
+}
+
+legend {
+    font-size: 2rem;
+    color: #ccc;
+    font-weight: bold;
+    padding: 5px;
+}
+
 form {
     max-width: 450px;
     margin: 0 auto;
@@ -7,33 +23,17 @@ form div {
     background: white;
     border-bottom: 1px solid #ccc;
 }
-   form label {
-       opacity: 0.3;
-       font-weight: bold;
-       position: absolute;
-       top: 22px;
-       left: 20px;
-   }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"] {
+form input {
     width: 100%;
     border: 0;
     padding: 20px 20px 20px 50px;
     background: #eee;
 }
 form input:focus {
-
- // removing default focus style
  outline: 0;
- // adding new one
  background: white;
 }
-form input:focus + label {
-      opacity: 0;
-  }
-
 
 form input:valid {
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
@@ -41,57 +41,46 @@ form input:valid {
     background-repeat: no-repeat;
     background-position: 20px 20px;
 }
-form input + label {
-      opacity: 0;
-  }
 
+form input:valid + .requirements {
+    display: none;
+}
+
+#password-copy:valid {
+    background: none;
+}
 
 form input:invalid:not(:focus):not(:placeholder-shown) {
     background: pink;
 }
-form input:invalid:not(:focus):not(:placeholder-shown) + label {
-      opacity: 0;
-  }
-
 
 form input:invalid:focus:not(:placeholder-shown)  ~ .requirements {
       max-height: 200px;
       padding: 0 30px 20px 50px;
   }
 
-
-
-
-.requirements {
+  form input:invalid +.requirements {
     padding: 0 30px 0 50px;
     color: #999;
     max-height: 0;
     transition: 0.28s;
     overflow: hidden;
-    color: red;
+    color: pink;
     font-style: italic;
 }
 
-
-
-input[type="submit"] {
-    display: block;
+button {
+background: none;
     width: 100%;
-    margin: 20px 0;
-    background: #41D873;
     color: white;
-    border: 0;
+    border: 1px solid #eee;
     padding: 20px;
     font-size: 1.2rem;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: all 0.3s;
 }
 
-
-
-body {
-    background: #333;
-    font-family: 'PT Sans', sans-serif;
-    padding: 20px;
-}
-* {
-    box-sizing: border-box;
+button:hover {
+    font-size: 1.3rem;
 }
