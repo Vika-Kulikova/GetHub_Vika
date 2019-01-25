@@ -34,7 +34,6 @@ class PersonProp {
         let height = +prompt('Enter your height in Mts, please', '');
         return height;
     }
-}
 
 let personProp = new PersonProp();
 let name = personProp.name();
@@ -96,6 +95,7 @@ class Person {
     checkSex(sex) {
         this._sex = (sex !== 'F' && sex !== 'M') ? 'M' : sex;
     }
+
 
     toString() {
         return console.log(JSON.stringify(this));
