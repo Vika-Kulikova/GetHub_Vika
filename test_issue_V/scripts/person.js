@@ -34,6 +34,7 @@ class PersonProp {
         let height = +prompt('Enter your height in Mts, please', '');
         return height;
     }
+}
 
 let personProp = new PersonProp();
 let name = personProp.name();
