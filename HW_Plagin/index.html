@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slider</title>
+
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+<section class="slider-container container-slider-header">
+    <div class="slider header-slider">
+        <ul class="slides">
+
+            <!--slide-1-->
+            <li class="slide">
+                <figure class="slide-image">
+                    <img src="../img/img-portfolio-01.jpg" alt="">
+                </figure>
+            </li>
+
+            <!--slide-2-->
+            <li class="slide">
+                <figure class="slide-image">
+                    <img src="../img/img-portfolio-02.jpg" alt="">
+                </figure>
+            </li>
+
+            <!--slide-3-->
+            <li class="slide">
+                <figure class="slide-image">
+                    <img src="../img/img-portfolio-03.jpg" alt="">
+                </figure>
+            </li>
+
+            <!--slide-4-->
+            <li class="slide">
+                <figure class="slide-image">
+                    <img src="../img/img-portfolio-04.jpg" alt="">
+                </figure>
+            </li>
+
+            <!--slide-5-->
+            <li class="slide" style="opacity: 0.5">
+                <figure class="slide-image">
+                    <img src="../img/img-portfolio-01.jpg" alt="">
+                </figure>
+            </li>
+        </ul>
+
+
+        <!--control buttons-->
+        <div class="slider-control">
+            <div class="slider-control-container">
+                <div class="control control-prev">prev</div>
+                <div class="control control-next">next</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="scripts/slide.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.header-slider').slider({
+            btnNext: '.control-next',
+            btnPrev: '.control-prev',
+            speed: 1000,
+            slideView: 2,
+            slideScroll: 1
+        });
+    });
+</script>
+
+</body>
+</html>
