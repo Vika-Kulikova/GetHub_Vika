@@ -1,0 +1,63 @@
+h1 {
+    text-align: center;
+    color: #aba6a6;
+    margin-top: 30px;
+    text-transform: capitalize;
+    font-style: italic;
+}
+
+.to-do-list {
+    width: 400px;
+    padding: 1rem;
+    box-shadow: 0 0 11px 1px rgba(114, 114, 114, 0.8);
+    border-radius: 2px;
+    margin: 5% auto;
+}
+
+.task-description {
+    font-style: italic;
+    margin-left: 10px;
+    font-weight: 600;
+    color: #011752;
+}
+
+input[type="text"] {
+    width: 100%;
+    margin: 0.5rem 0;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 2px solid #0a319a;
+    outline: none;
+    padding: 5px;
+    font-style: italic;
+    box-sizing: border-box;
+}
+input[type="text"]:focus, input[type="text"]:active {
+     border-color: rgba(0, 29, 108, 0.52);
+ }
+
+.task {
+    border-bottom: 2px solid #e1e1e1;
+
+
+    padding: 10px;
+}
+.delete-task {
+    color: #e1e1e1;
+    float: right;
+    cursor: pointer;
+    padding: 0 5px;
+    border: 1px solid #e1e1e1;
+}
+.delete-task:hover {
+    color: #c80000;
+    border-color: red;
+}
+
+.to-do-list .task:hover .delete-task {
+    display: inline-block;
+}
+
+.task.done {
+    text-decoration: line-through;
+}
