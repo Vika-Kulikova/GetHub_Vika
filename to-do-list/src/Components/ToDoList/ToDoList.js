@@ -1,42 +1,57 @@
 import React from 'react';
-import {createStore} from 'redux '
+
 import "./ToDoList.css"
-import Task from "./Task";
-import {TodolistReduser} from "redux/todolist-redusers.js"
-import {createNewTaskAction} from  "redux/todolist-actions"
+import ToDoTaskCreator from "./ToDoTaskCreator";
+import TodoListFooter from "./TodoListFooter";
+import ToDoTasksList from "./ToDoTasksList";
 
 class ToDoList extends React.Component {
-    constructor(props) {
+    constructor() {
         super();
-        this.store = createStore(TodolistReduser);
-        let state = this.store.getState();
-
-        this.state = state;
+        this.state = {
+            tasks: [
+                {
+                    id: 0,
+                    title: "task 1",
+                    isDone: false
+                },
+                {
+                    id: 1,
+                    title: "task 2",
+                    isDone: false
+                }
+            ]
+        };
     }
 
 
-    createNewTask(e) {
-        if (e.key === 'Enter') {
-            this.store.dispatch(createNewTaskAction)
-            this.setState({
-                tasks: [
-                    ...this.state.tasks,
-                    {
-                        title: e.currentTarget.value,
-                        isDone: false,
-                        id: this.newId
-                    }
-                ]
-            });
-            e.currentTarget.value = '';
-            this.newId++
-        }
-    }
-
-    deleteTask(itemId, e) {
-        const newTaskList = this.state.tasks.filter((t) => {
-            return t.id !== itemId;
+    createNewTask(task) {
+        this.setState({
+            tasks: [...this.state.tasks, task]
         });
+    }
+
+
+    deleteTask(taskId) {
+        const newTaskList = this.state.tasks.filter((t) => {
+            return t.id !== taskId;
+        });
+        this.setState({
+            tasks: newTaskList
+        });
+    }
+
+    updateTask(task) {
+        const newTaskList = [...this.state.tasks];
+
+        newTaskList.forEach((t) => {
+            if (t.id === task.id) {
+                t.isDone = task.isDone;
+                return;
+            }
+        });
+
+
         this.setState({
             tasks: newTaskList
         });
@@ -45,16 +60,11 @@ class ToDoList extends React.Component {
     render() {
         return (
             <div className="to-do-list">
-                <div className="header-list">
-                    <input type="text" onKeyPress={this.createNewTask.bind(this)}/>
-                </div>
-                <div className="tasks">
-                    {
-                        this.state.tasks.map((item, index) => {
-                            return <Task task={item} deleteCallback={this.deleteTask.bind(this)} key={item.id}/>
-                        })
-                    }
-                </div>
+                <ToDoTaskCreator onCreate={this.createNewTask.bind(this)}/>
+                <ToDoTasksList tasks={this.state.tasks}
+                               onDelete={this.deleteTask.bind(this)}
+                               onUpdate={this.updateTask.bind(this)}/>
+                <TodoListFooter/>
             </div>
         );
     }

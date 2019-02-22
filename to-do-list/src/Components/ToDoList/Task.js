@@ -2,38 +2,32 @@ import React from 'react';
 
 class Task extends React.Component {
     constructor(props) {
-        super();
-        this.state = {
-            task: props.task,
+        super(props);
 
-        };
         this.parentDeleteCallback = props.deleteCallback;
+        this.parentUpdateCallback = props.updateCallback;
     }
 
     deleteTask(e) {
-        this.parentDeleteCallback(this.state.task.id);
+        this.parentDeleteCallback(this.props.task.id);
     }
 
     toggleTaskStatus(e) {
-        let newTask = {
-            ...this.state.task,
-            isDone: !this.state.task.isDone
-        };
+        let task = {...this.props.task};
 
+        task.isDone = !task.isDone;
 
-        this.setState({
-            task: newTask
-        });
-        // this.state.isDone = !this.state.isDone;
-        this.forceUpdate();
+        this.parentUpdateCallback(task);
     }
 
 
     render() {
         return (
-            <div className={!this.state.task.isDone ? 'task' : 'task done'}>
-                <input type="checkbox" checked={ this.state.task.isDone } onClick={this.toggleTaskStatus.bind(this)}/>
-                <span className="task-description">{this.state.task.title}</span>
+            <div className={!this.props.task.isDone ? 'task' : 'task done'}>
+                <input type="checkbox"
+                       defaultChecked={this.props.task.isDone}
+                       onClick={this.toggleTaskStatus.bind(this)}/>
+                {this.props.task.title}
                 <span className="delete-task" onClick={this.deleteTask.bind(this)}>x</span>
             </div>
 
