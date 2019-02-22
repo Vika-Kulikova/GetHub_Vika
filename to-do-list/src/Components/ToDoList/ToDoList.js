@@ -1,31 +1,23 @@
 import React from 'react';
-
+import {createStore} from 'redux '
 import "./ToDoList.css"
 import Task from "./Task";
+import {TodolistReduser} from "redux/todolist-redusers.js"
+import {createNewTaskAction} from  "redux/todolist-actions"
 
 class ToDoList extends React.Component {
     constructor(props) {
         super();
-        this.newId = 2;
-        this.state = {
-            tasks: [
-                {
-                    id: 0,
-                    title: "task 1",
-                    isDone: false
-                },
-                {
-                    id: 1,
-                    title: "task 2",
-                    isDone: false
-                }
-            ]
-        };
+        this.store = createStore(TodolistReduser);
+        let state = this.store.getState();
+
+        this.state = state;
     }
 
 
     createNewTask(e) {
         if (e.key === 'Enter') {
+            this.store.dispatch(createNewTaskAction)
             this.setState({
                 tasks: [
                     ...this.state.tasks,
@@ -45,7 +37,7 @@ class ToDoList extends React.Component {
         const newTaskList = this.state.tasks.filter((t) => {
             return t.id !== itemId;
         });
-            this.setState({
+        this.setState({
             tasks: newTaskList
         });
     }
@@ -53,13 +45,13 @@ class ToDoList extends React.Component {
     render() {
         return (
             <div className="to-do-list">
-                <div className="header">
+                <div className="header-list">
                     <input type="text" onKeyPress={this.createNewTask.bind(this)}/>
                 </div>
                 <div className="tasks">
                     {
                         this.state.tasks.map((item, index) => {
-                            return <Task task={item} deleteCallback={this.deleteTask.bind(this)} key={item.id} />
+                            return <Task task={item} deleteCallback={this.deleteTask.bind(this)} key={item.id}/>
                         })
                     }
                 </div>
