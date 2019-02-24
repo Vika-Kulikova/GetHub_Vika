@@ -23,7 +23,6 @@ class ToDoTaskCreator extends React.Component {
         }
     }
 
-
     render() {
         return (
             <div className="header">

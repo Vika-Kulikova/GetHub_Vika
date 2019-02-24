@@ -20,7 +20,6 @@ class Task extends React.Component {
         this.parentUpdateCallback(task);
     }
 
-
     render() {
         return (
             <div className={!this.props.task.isDone ? 'task' : 'task done'}>

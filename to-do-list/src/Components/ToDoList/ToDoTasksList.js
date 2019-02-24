@@ -5,10 +5,6 @@ import Task from "./Task";
 
 
 class ToDoTasksList extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     render() {
         return (
