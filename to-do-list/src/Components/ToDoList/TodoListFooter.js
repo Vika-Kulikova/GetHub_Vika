@@ -7,7 +7,7 @@ class TodoListFooter extends React.Component {
 
 
     render() {
-        let {task, filter, onClearCompleted} = this.props;
+        let {filter, onClearCompleted} = this.props;
         return (
             <div className="to-do-list-footer">
                 <span className="qt"> {this.props.tasks.filter((t) => !t.isDone).length} items</span>
